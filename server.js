@@ -1,12 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const moments = require('moment')
-// const expenseDat = require("./expenses")
 const api = require ('./server/routes/api')
 const app = express()
 
 
-// Mongoose setup
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/', api)
