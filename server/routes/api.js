@@ -8,13 +8,12 @@ router.get("/test", function (req, res) {
    res.send(expenseData)
 })
 
-router.get("/expenses", function (req, res) {
+router.get("/expenses",async function (req, res) {
    const {d1,d2}= req.query
-   // const d1 = req.query.d1
-   // const d2 = req.query.d2
+   console.log(d1,d2)
 
    if (d1 && d2) {
-      Expense.find({
+     await Expense.find({
          $and: [
             { date: { $gt: moment(d1).format('LLLL') } },
             { date: { $lt: moment(d2).format('LLLL') } }
@@ -26,7 +25,7 @@ router.get("/expenses", function (req, res) {
    }
 
    else if (d1) {
-      Expense.find({
+      await Expense.find({
          $and: [
             { date: { $gt: moment(d1).format('LLLL') } },
             { date: { $lt: moment(new Date()).format('LLLL') } }
@@ -36,13 +35,13 @@ router.get("/expenses", function (req, res) {
       })
    }
    else {
-      Expense.find({}).sort({ date: -1 }).exec(function (err, expenses) {
+     await Expense.find({}).sort({ date: -1 }).exec(function (err, expenses) {
          res.send(expenses)
       })
    }
 })
 
-router.post("/expense", function (req, res) {
+router.post("/expense", async function (req, res) {
    const dateToParse = req.body.date ? req.body.date : new Date()
    const newExpense = new Expense({
       name: req.body.name,
@@ -50,11 +49,12 @@ router.post("/expense", function (req, res) {
       group: req.body.group,
       date: moment(dateToParse).format('LLLL')
    })
+   newExpense.save()
    res.send(newExpense)
 
-   Expense.find({ _id: "5f575d77a16029d6fcf3ad14" }, function (err, people) {
-      console.log(people)
-   })
+   // Expense.find({ _id: "5f575d77a16029d6fcf3ad14" }, function (err, people) {
+   //    console.log(people)
+   // })
 })
 
 router.put("/update", function (req, res) {
