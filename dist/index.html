@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses project</title>
+</head>
+
+<body>
+
+    <h1 id="header">My Expenses</h1>
+
+    <div id="add-expense">
+        <input type="text" placeholder="Who spent the money?" id="name">
+        <input type="text" placeholder="How much did you spent?" id="amount">
+        <select name="category" id="group">
+            <option value="fun">Fun</option>
+            <option value="rent">Rent</option>
+            <option value="food">Food</option>
+            <option value="bills">Bills</option>
+          </select>
+        <input type="date" id="date">
+        <button id="btn-submit">Submit</button>
+    </div>
+
+    <div id="getAllExpenses">
+        <input type="date" id="d1">
+        <input type="date" id="d2">
+        <button id="btn-dates">Search</button>
+    </div>
+
+    <div id="expenses"></div>
+
+    <script id="expenses-template" type="text/x-handlebars-template">
+        {{#each data}}
+        <div id="expense" data-id="{{_id}}">
+            <p>User : {{name}}</p>
+            <p>Amount spent :{{amount}}</p>
+            <p>Category : {{group}}</p>
+            <p>Date : {{date}}</p>
+        </div>
+        {{/each}}
+    </script>
+
+    <script id="addExpenses-template" type="text/x-handlebars-template">
+
+        <div id="new-expense" data-id="{{_id}}">
+            <p>User : {{name}}</p>
+            <p>Amount spent : {{amount}}</p>
+            <p>Category : {{group}}</p>
+            <p>Date : {{date}}</p>
+        </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+    <!-- <script src="./handlebars/dist/handlebars.js"></script> -->
+    <script src="./jquery/dist/jquery.js"></script>
+    <script src="logic.js"></script>
+    <script src="Renderer.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
